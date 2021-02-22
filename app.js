@@ -10,8 +10,13 @@ import globalRouter from "./routers/globalRouter";
 import routes from "./routes";
 const app = express()
 
-app.use(helmet());
-app.set('view engine', "pug")
+app.use(helmet({ contentSecurityPolicy: false, }));
+app.use(function(req, res, next) {
+	res.setHeader("Content-Security-Policy", "script-src 'self' https://archive.org");
+	return next();
+});
+app.set("view engine", "pug")
+app.use("/uploads", express.static("uploads"))
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
