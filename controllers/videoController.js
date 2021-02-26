@@ -10,13 +10,21 @@ export const home = async (req, res) => {
 		res.render("home", { pageTitle: "Home", videos: [] });
 	}
 };
-export const search = (req, res) => {
+export const search = async (req, res) => {
 	// console.log(req);
 	console.log(req.query.term);
 	// const searchingBy = req.query.term;	//EC6 이전의 선언방식
 	const {
 		query: { term: searchingBy }
 	} = req;	// term = req.query.term 이라고 선언하는 것보다 더 좋은 방식
+	let videos = [];
+	try{
+		videos = await Video.find({ 
+			title: { $regex: searchingBy, $options: "i"} 
+		});
+	} catch(error){
+		console.log(error);
+	}
 	res.render("search", { pageTitle: "Search", searchingBy, videos });
 }
 export const getUpload = (req, res) => res.render("upload", { pageTitle: "Upload" });
@@ -79,6 +87,8 @@ export const deleteVideo = async (req, res) => {
 	} = req;
 	try{
 		await Video.findOneAndRemove({ _id: id});
-	} catch(error){}
+	} catch(error){
+		console.log(error);
+	}
 	res.redirect(routes.home)
 };
