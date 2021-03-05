@@ -1,9 +1,10 @@
 import routes from "../routes";
+import User from "../models/User";
 
 export const getJoin = (req, res) => {
 	res.render("join", { pageTitle: "Join" })
 };
-export const postJoin = (req, res) => {
+export const postJoin = async (req, res) => {
 	console.log(req.body);
 	const {
 		boy: { name, email, password, password2 }
@@ -11,7 +12,15 @@ export const postJoin = (req, res) => {
 	if (password != password2) {
 		res.status(400)		// 비밀번호 2개가 다를 경우 상태코드로 400을 내보냄
 	} else {
-		// To DO: Register User
+		try{
+			const user = await User({
+				name,
+				email
+			});
+			await User.register(user, password);
+		} catch(error) {
+			console.log(error);
+		}
 		// To DO: Log user in
 		res.redirect(routes.home)
 	}
