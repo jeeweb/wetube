@@ -8,10 +8,11 @@ export const getJoin = (req, res) => {
 export const postJoin = async (req, res, next) => {
 	console.log(req.body);
 	const {
-		boy: { name, email, password, password2 }
+		body: { name, email, password, password2 }
 	} = req;
 	if (password != password2) {
 		res.status(400)		// 비밀번호 2개가 다를 경우 상태코드로 400을 내보냄
+		res.render("join", { pageTitle: "Join "})
 	} else {
 		try{
 			const user = await User({
@@ -25,7 +26,6 @@ export const postJoin = async (req, res, next) => {
 			res.redirect(routes.home)
 		}
 	}
-	res.render("join", { pageTitle: "Join" })
 }
 
 export const getLogin = (req, res) => res.render("login", { pageTitle: "Login" });
