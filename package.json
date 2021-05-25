@@ -8,7 +8,7 @@
     "url": "git+https://github.com/jeeweb/wetube.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node index.js"
+    "dev": "nodemon --exec babel-node src/server.js"
   },
   "author": "Jiee Kong",
   "license": "ISC",
