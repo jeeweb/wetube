@@ -7,14 +7,11 @@ html(lang="ko")
 		header
 			if fakeUser.loggedIn
 				small Hello #{fakeUser.username}
-			nav
-				ul
-					if fakeUser.loggedIn
+				nav
+					ul
 						li
-							a(href="/logout") Log Out
-					else
-						li
-							a(href="/login") Login
+							a(href="/upload") Upload Video
+					
 		main
 			block content 
 	include partials/footer.pug
