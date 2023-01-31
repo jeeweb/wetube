@@ -1,9 +1,0 @@
-extends base.pug
-include mixins/video
-
-block content
-	ul
-		each video in videos 
-			+video(video)
-		else 
-			li Sorry nothing found.
