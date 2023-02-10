@@ -4,37 +4,26 @@ import res from "express/lib/response";
 const PORT = 4004;
 const app = express();
 
-const logger = (req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
+const routerLogger = (req, res, next) => {
+  console.log("PATH", req.path);
   next();
 };
 
-const privateMiddleware = (req, res, next) => {
-  const url = req.url;
-  if (url === "/protected") {
-    return res.send("<h1>Not Allowed</h1>");
-  }
-  console.log("Allowed, you may continue.");
+const methodLogger = (req, res, next) => {
+  console.log("METHOD", req.method);
   next();
 };
 
-const handleHome = (req, res) => {
-  // return res.end();
-  return res.send("I love middlewares");
+const home = (req, res) => {
+  console.log("I will respond.");
+  res.send("hello");
 };
-const handleLogin = (req, res) => {
-  return res.send("Login here");
+const login = (req, res) => {
+  return res.send("login");
 };
-const handleProtected = (req, res) => {
-  return res.send("Welcome to the private lounge.");
-};
-
-app.use(logger);
-app.use(privateMiddleware);
-
-app.get("/", handleHome);
-app.get("/login", handleLogin);
-app.get("/protected", handleProtected);
+app.use(methodLogger, routerLogger);
+app.get("/", home);
+app.get("/login", login);
 
 const handleListening = () =>
   console.log(`Server listening on port http://localhost:${PORT}`);
