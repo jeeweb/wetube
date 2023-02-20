@@ -1,6 +1,28 @@
-export const trending = (req, res) => {
-  res.render("home", { pageTitle: "Home" });
+import Video from "../models/Video";
+
+/* callback
+export const home = (req, res) => {
+  console.log("Start");
+  Video.find({}, (error, videos) => {
+    console.log("Search Finished");
+    return res.render("home", { pageTitle: "Home", videos });
+  });
+  console.log("I finish first");
 };
+*/
+// promise
+export const home = async (req, res) => {
+  try {
+    // console.log("I Start");
+    const videos = await Video.find({});
+    // console.log("I finish");
+    //console.log(videos);
+    return res.render("home", { pageTitle: "Home", videos });
+  } catch (error) {
+    return res.render("server-error", { error });
+  }
+};
+
 export const watch = (req, res) => {
   //console.log(req.params);
   // const id = req.params.id;
