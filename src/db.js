@@ -1,9 +1,13 @@
 import mongoose from "mongoose";
 
-mongoose.connect("mongodb://127.0.0.1:27017/wetube", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  "mongodb://127.0.0.1:27017/wetube",
+  //"mongodb+srv://jiee:q0JI3FmwwOOrb2ap@atlascluster.1dgjpcz.mongodb.net/test",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 const db = mongoose.connection;
 
