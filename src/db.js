@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 mongoose.connect(
-  "mongodb://127.0.0.1:27017/wetube"
+  process.env.DB_URL
   //"mongodb+srv://jiee:q0JI3FmwwOOrb2ap@atlascluster.1dgjpcz.mongodb.net/test",
 );
 
