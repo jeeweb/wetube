@@ -86,18 +86,45 @@ export const postEdit = async (req, res) => {
     { new: true }
   );
   req.session.user = updatedUser;
-  /*
-  req.session.user = {
-    ...req.session.user,
-    name,
-    email,
-    usesrname,
-    location,
-  };
-  */
   return res.rendirect("/users/edit");
 };
 
+export const getChangePassword = (req, res) => {
+  if (req.session.user.socialOnly === true) {
+    return res.redirect("/");
+  }
+  return res.render("users/change-password", { pageTitle: "Change Password" });
+};
+export const postChangePassword = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { oldPassword, newPassword, newPasswordConfirmation },
+  } = req;
+  const user = await User.findById(_id);
+  // 기존비밀번호와 oldPassword 맞는지 확인
+  const ok = await bcrypt.compare(oldPassword, user.password);
+  if (!ok) {
+    return res.status(400).render("users/change-password", {
+      pageTitle: "Change Password",
+      errorMessage: "The current password is incorrect",
+    });
+  }
+
+  // newPassword와 newPasswordConfirmation 비교
+  if (newPassword !== newPasswordConfirmation) {
+    return res.status(400).render("users/change-password", {
+      pageTitle: "Change Password",
+      errorMessage: "The password does not match the confirmation",
+    });
+  }
+
+  // 비밀번호 변경
+  user.password = newPassword;
+  await user.save();
+  return res.redirect("/");
+};
 export const remove = (req, res) => res.send("Delete User");
 export const logout = (req, res) => res.send("Log out");
 export const see = (req, res) => res.send("See User");
