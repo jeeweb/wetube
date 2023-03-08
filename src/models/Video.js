@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const videoSchema = new mongoose.Schema({
   title: { type: String, require: true, trim: true, maxLength: 80 }, // {type: String}
+  fileUrl: { type: String, required: true },
   description: { type: String, require: true, trim: true, minLength: 20 },
   createdAt: { type: Date, required: true, default: Date.now },
   hashtags: [{ type: String }],
@@ -11,14 +12,6 @@ const videoSchema = new mongoose.Schema({
   },
 });
 
-/*
-videoSchema.pre("save", async function () {
-  console.log("We are about to save: ", this);
-  this.hashtags = this.hashtags[0]
-    .split(",")
-    .map((word) => (word.startsWith("#") ? word : `#${word}`));
-});
-*/
 videoSchema.static("formatHashtags", function (hashtags) {
   return hashtags
     .split(",")

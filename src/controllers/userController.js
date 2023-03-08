@@ -88,7 +88,7 @@ export const postEdit = async (req, res) => {
     { new: true }
   );
   req.session.user = updatedUser;
-  return res.rendirect("/users/edit");
+  return res.redirect("/users/edit");
 };
 
 export const getChangePassword = (req, res) => {
