@@ -2,7 +2,8 @@ doctype html
 html(lang="en")
   head 
     title #{pageTitle} | #{siteName}
-    <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css"> 
+    link(rel="stylesheet", href="https://unpkg.com/mvp.css@1.12/mvp.css")
+    link(rel="stylesheet", href="/static/css/styles.css")
   body 
     header
       h1=pageTitle
@@ -30,4 +31,4 @@ html(lang="en")
     main
       block content
     include partials/footer.pug
-    scripts(src="/static/js/main.js")
+    script(src="/static/js/main.js")
