@@ -1,17 +1,6 @@
 import User from "../models/User";
 import Video from "../models/Video";
 
-/* callback
-export const home = (req, res) => {
-  console.log("Start");
-  Video.find({}, (error, videos) => {
-    console.log("Search Finished");
-    return res.render("home", { pageTitle: "Home", videos });
-  });
-  console.log("I finish first");
-};
-*/
-// promise
 export const home = async (req, res) => {
   try {
     // console.log("I Start");
@@ -47,6 +36,7 @@ export const getEdit = async (req, res) => {
     return res.status(404).render("404", { pageTitle: "Video not found." });
   }
   if (String(video.owner) !== String(_id)) {
+    req.flash("error", "Not authorized");
     return res.status(403).redirect("/");
   }
   return res.render("edit", { pageTitle: `Edit: ${video.title}`, video });
@@ -63,6 +53,7 @@ export const postEdit = async (req, res) => {
     return res.status(404).render("404", { pageTitle: "Video not found." });
   }
   if (String(video.owner) !== String(_id)) {
+    req.flash("error", "You are not the the owner of the video.");
     return res.status(403).redirect("/");
   }
   await Video.findByIdAndUpdate(id, {
@@ -70,6 +61,7 @@ export const postEdit = async (req, res) => {
     description,
     hashtags: Video.formatHashtags(hashtags),
   });
+  req.flash("success", "Changes saved.");
   return res.redirect(`/videos/${id}`);
 };
 
@@ -81,16 +73,22 @@ export const postUpload = async (req, res) => {
   const {
     user: { _id },
   } = req.session;
-  const { path: fileUrl } = req.file;
+  const { video, thumb } = req.files;
+  console.log(video, thumb);
   const { title, description, hashtags } = req.body;
   try {
     const newVideo = await Video.create({
       title,
       description,
-      fileUrl,
+      fileUrl: video[0].path,
+      thumbUrl: thumb[0].path,
       owner: _id,
       hashtags: Video.formatHashtags(hashtags),
     });
+
+    newVideo.fileUrl.replaceAll(/\\/g, "/");
+    newVideo.thumbUrl.replaceAll(/\\/g, "/");
+
     const user = await User.findById(_id);
     user.videos.push(newVideo._id);
     user.save();

@@ -17,10 +17,13 @@
   },
   "homepage": "https://github.com/jeeweb/wetube#readme",
   "dependencies": {
+    "@ffmpeg/core": "^0.8.5",
+    "@ffmpeg/ffmpeg": "^0.9.7",
     "bcrypt": "^5.1.0",
     "connect-mongo": "^4.6.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-flash": "^0.0.2",
     "express-session": "^1.17.3",
     "mongoose": "^6.9.2",
     "morgan": "^1.10.0",
