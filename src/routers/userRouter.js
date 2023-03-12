@@ -4,9 +4,10 @@ import {
   postEdit,
   getChangePassword,
   postChangePassword,
-  remove,
   logout,
   see,
+  startGithubLogin,
+  finishGithubLogin,
 } from "../controllers/userController";
 import {
   protectorMiddleware,
@@ -27,8 +28,8 @@ userRouter
   .all(protectorMiddleware)
   .get(getChangePassword)
   .post(postChangePassword);
-// userRouter.get("github/start", publicOnlyMiddleware, startGithubLogin);
-// userRouter.get("github/finish", publicOnlyMiddleware, finishGithubLogin);
+userRouter.get("/github/start", publicOnlyMiddleware, startGithubLogin);
+userRouter.get("/github/finish", publicOnlyMiddleware, finishGithubLogin);
 userRouter.get("/:id", see);
 
 export default userRouter;
