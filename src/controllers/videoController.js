@@ -4,12 +4,9 @@ import Comment from "../models/Comment";
 
 export const home = async (req, res) => {
   try {
-    // console.log("I Start");
     const videos = await Video.find({})
       .sort({ createdAt: "desc" })
       .populate("owner");
-    // console.log("I finish");
-    //console.log(videos);
     return res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
     return res.render("server-error", { error });
@@ -19,7 +16,7 @@ export const home = async (req, res) => {
 export const watch = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id).populate("owner").populate("comments");
-  //console.log(video);
+  console.log(video);
   if (!video) {
     // video === null
     return res.render("404", { pageTitle: "Video not found." });
@@ -74,7 +71,7 @@ export const postUpload = async (req, res) => {
   const {
     user: { _id },
   } = req.session;
-  const { video, thumb } = req.files;
+  const { video, thumb } = req.file;
   console.log(video, thumb);
   const { title, description, hashtags } = req.body;
   try {
@@ -92,6 +89,7 @@ export const postUpload = async (req, res) => {
 
     const user = await User.findById(_id);
     user.videos.push(newVideo._id);
+    //console.log(newVideo)
     user.save();
     return res.redirect("/");
   } catch (error) {

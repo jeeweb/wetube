@@ -102,7 +102,7 @@ export const finishGithubLogin = async (req, res) => {
         },
       })
     ).json();
-    console.log(userData);
+    //console.log(userData);
     const emailData = await (
       await fetch(`${apiUrl}/user/emails`, {
         headers: {

@@ -1,36 +1,103 @@
 .video__data {
-  margin-top: 20px;
+  margin: 20px 0;
   display: flex;
   flex-direction: column;
   .video__title {
     font-size: 26px;
     margin-bottom: 5px;
   }
-  .video__createdAt {
-    font-size: 12px;
+  .video__uploadInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .video__owner {
+      margin-bottom: 5px;
+      font-size: 14px;
+      a {
+        color: $pink;
+      }
+      .video__createdAt {
+        font-size: 12px;
+      }
+    }
   }
-  .video__owner {
-    margin-bottom: 5px;
-    font-size: 14px;
+  .video__btns {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 4px;
+    margin-top: 8px;
     a {
-      color: cornflowerblue;
-      text-decoration: underline;
+      display: block;
+      padding: 4px 8px;
+      border: 1px solid $white;
+      border-radius: 12px;
+      transition: 0.3s;
+      &:hover {
+        background-color: $pink;
+        border-color: $pink;
+        color: $white;
+      }
     }
   }
 }
 
+#commentForm.video__comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 0;
+  textarea {
+    height: 14px;
+    padding: 8px;
+    color: $white;
+    border: 0;
+    border-bottom: 1px solid $white;
+    outline: none;
+    transition: border 0.4s;
+    &:focus {
+      border-bottom: 2px solid $pink;
+    }
+  }
+  button {
+    align-self: flex-end;
+    display: block;
+    padding: 4px 8px;
+    border: 1px solid $white;
+    border-radius: 12px;
+    transition: 0.3s;
+    &:hover {
+      background-color: $pink;
+      border-color: $pink;
+      color: $white;
+    }
+  }
+}
 .video__comments {
   display: flex;
   flex-direction: column;
-  max-width: 320px;
   width: 100%;
-  margin: 0 auto;
   margin-top: 20px;
   .video__comment {
-    padding: 10px;
-    border-radius: 9999px;
-    background-color: white;
-    color: black;
-    margin-bottom: 10px;
+    position: relative;
+    padding: 16px 0;
+    color: $white;
+    & + & {
+      margin-top: 10px;
+    }
+    .fas.fa-comment {
+      color: $pink;
+      padding-right: 16px;
+    }
+    .fas.fa-times {
+      position: absolute;
+      right: 0;
+      top: 8px;
+      padding: 8px;
+    }
   }
 }

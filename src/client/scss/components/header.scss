@@ -1,10 +1,17 @@
 header {
-  padding: 20px 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  padding: 8px 40px;
+  background-color: $lightBg;
+  box-sizing: border-box;
   .header__logo {
-    color: $red;
+    color: $pink;
+    font-family: "Pacifico", cursive;
     font-size: 38px;
   }
   ul {
@@ -13,7 +20,6 @@ header {
     align-items: center;
     li {
       margin-left: 30px;
-      font-size: 14px;
       font-weight: 600;
       text-transform: uppercase;
     }
@@ -22,7 +28,7 @@ header {
     }
   }
   .header__btn {
-    background-color: white;
+    background-color: $white;
     color: $bg;
     padding: 5px 10px;
     border-radius: 5px;
@@ -31,5 +37,6 @@ header {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    background-color: $white;
   }
 }

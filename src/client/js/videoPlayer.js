@@ -11,6 +11,7 @@ const fullScreenBtn = document.getElementById("fullScreen");
 const fullScreenIcon = fullScreenBtn.querySelector("i");
 const videoContainer = document.getElementById("videoContainer");
 const videoControls = document.getElementById("videoControls");
+const commentTextarea = document.getElementById("commentTextarea");
 
 let controlsTimeout = null;
 let controlsMovementTimeout = null;
@@ -85,7 +86,9 @@ const handleKeyDown = (event) => {
   const fullscreen = document.fullscreenElement;
   console.log(event.key, fullscreen);
   if (event.key === " ") {
-    handlePlayClick();
+    if (!commentTextarea) {
+      handlePlayClick();
+    }
   } else if (event.key === "f") {
     video.requestFullscreen();
     fullScreenIcon.classList = "fas fa-compress";

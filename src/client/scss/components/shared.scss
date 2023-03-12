@@ -1,12 +1,12 @@
 .empty__message {
-  margin-bottom: 50px;
-  font-size: 18px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  opacity: 0.3;
 }
-.video-grid {
-  display: grid;
-  gap: 50px;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
+
 .auth-switch {
   text-align: center;
   margin-top: 40px;
