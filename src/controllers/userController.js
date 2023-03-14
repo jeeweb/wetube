@@ -147,17 +147,17 @@ export const postEdit = async (req, res) => {
     session: {
       user: { _id, avatarUrl },
     },
-    body: { name, email, usesrname, location },
+    body: { name, email, username, location },
     file,
   } = req;
-
+  console.log(file);
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
-      avatarUrl: file ? file.path : avatarUrl,
+      avatarUrl: file ? file.location : avatarUrl,
       name,
       email,
-      usesrname,
+      username,
       location,
     },
     { new: true }

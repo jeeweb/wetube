@@ -16,7 +16,7 @@ export const home = async (req, res) => {
 export const watch = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id).populate("owner").populate("comments");
-  console.log(video);
+  //console.log(video);
   if (!video) {
     // video === null
     return res.render("404", { pageTitle: "Video not found." });
@@ -72,14 +72,14 @@ export const postUpload = async (req, res) => {
     user: { _id },
   } = req.session;
   const { video, thumb } = req.file;
-  console.log(video, thumb);
+  //console.log(video, thumb);
   const { title, description, hashtags } = req.body;
   try {
     const newVideo = await Video.create({
       title,
       description,
-      fileUrl: video[0].path,
-      thumbUrl: thumb[0].path,
+      fileUrl: video[0].location || video[0].path,
+      thumbUrl: thumb[0].location || thumb[0].path,
       owner: _id,
       hashtags: Video.formatHashtags(hashtags),
     });
@@ -126,7 +126,7 @@ export const search = async (req, res) => {
         $regex: new RegExp(`${keyword}`, "i"),
       },
     }).populate("owner");
-    console.log(i);
+    //console.log(i);
   }
   return res.render("search", { pageTitle: "Search", videos });
 };

@@ -84,7 +84,7 @@ const handleFullscreen = () => {
 
 const handleKeyDown = (event) => {
   const fullscreen = document.fullscreenElement;
-  console.log(event.key, fullscreen);
+  //console.log(event.key, fullscreen);
   if (event.key === " ") {
     if (!commentTextarea) {
       handlePlayClick();
